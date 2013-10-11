@@ -1,0 +1,1 @@
+g++ -g -MMD -Wall -I. -I./rpc -DLAB=1 -DSOL=0 -D_FILE_OFFSET_BITS=64 -c lock_server.cc -o lock_server.o
