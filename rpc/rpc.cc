@@ -661,13 +661,13 @@ rpcs::checkduplicate_and_update(unsigned int clt_nonce, unsigned int xid,
 		unsigned int xid_rep, char **b, int *sz)
 {
   ScopedLock rwl(&reply_window_m_);
-  std::cout<<"******** check duplicate, clt_nonce = " << clt_nonce << ", xid = " << xid << ", xid_rep = " << xid_rep << std::endl;
+//  std::cout<<"******** check duplicate, clt_nonce = " << clt_nonce << ", xid = " << xid << ", xid_rep = " << xid_rep << std::endl;
   std::list<reply_t>::iterator it;
   //check if RPC with xid from clt_nonce has been received.
   for(it = reply_window_[clt_nonce].begin(); it != reply_window_[clt_nonce].end(); ++it)
   {
     //find the rpc
-    std::cout << it->xid <<", cb_present = "<<it->cb_present << std::endl;
+//    std::cout << it->xid <<", cb_present = "<<it->cb_present << std::endl;
     if(it -> xid == xid)
     {  
       if(it -> cb_present == false)
@@ -704,21 +704,21 @@ rpcs::checkduplicate_and_update(unsigned int clt_nonce, unsigned int xid,
   //add new reply_t to reply_window
   reply_t replyi(xid);
 //  replyi.cb_present = false;
-  std::cout<<"insert xid = " << xid << ", cb_present = " <<replyi.cb_present << std::endl;
+ // std::cout<<"insert xid = " << xid << ", cb_present = " <<replyi.cb_present << std::endl;
   for(it = reply_window_[clt_nonce].begin(); it != reply_window_[clt_nonce].end(); ++it)
   {
-    std::cout << it->xid << std::endl;
+  //  std::cout << it->xid << std::endl;
     //insert in right position
     if(it -> xid > xid) //*********
     {
-     std::cout << "insert in the middle" << std::endl;
+   //  std::cout << "insert in the middle" << std::endl;
      reply_window_[clt_nonce].insert(it,replyi);
      break;
     }  
   }
   if (it == reply_window_[clt_nonce].end())
   {
-    std::cout << "insert in the end" << std::endl;
+    //std::cout << "insert in the end" << std::endl;
     reply_window_[clt_nonce].push_back(replyi);
   }
   return NEW;

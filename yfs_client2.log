@@ -1,0 +1,262 @@
+FUSE library version: 2.8.6
+unique: 1, opcode: INIT (26), nodeid: 0, insize: 56
+INIT: 7.19
+flags=0x0000047b
+max_readahead=0x00020000
+   INIT: 7.12
+   flags=0x00000000
+   max_readahead=0x00020000
+   max_write=0x00020000
+   unique: 1, success, outsize: 40
+unique: 2, opcode: OPENDIR (27), nodeid: 1, insize: 48
+   unique: 2, success, outsize: 32
+unique: 3, opcode: LOOKUP (1), nodeid: 1, insize: 47
+   unique: 3, error: -2 (No such file or directory), outsize: 16
+unique: 4, opcode: LOOKUP (1), nodeid: 1, insize: 57
+   unique: 4, error: -2 (No such file or directory), outsize: 16
+unique: 5, opcode: LOOKUP (1), nodeid: 1, insize: 52
+   unique: 5, error: -2 (No such file or directory), outsize: 16
+unique: 6, opcode: READDIR (28), nodeid: 1, insize: 80
+fuseserver_readdir
+   unique: 6, success, outsize: 16
+unique: 7, opcode: LOOKUP (1), nodeid: 1, insize: 52
+   unique: 7, error: -2 (No such file or directory), outsize: 16
+unique: 8, opcode: RELEASEDIR (29), nodeid: 1, insize: 64
+   unique: 8, success, outsize: 16
+unique: 9, opcode: OPENDIR (27), nodeid: 1, insize: 48
+   unique: 9, success, outsize: 32
+unique: 10, opcode: READDIR (28), nodeid: 1, insize: 80
+fuseserver_readdir
+   unique: 10, success, outsize: 16
+unique: 11, opcode: RELEASEDIR (29), nodeid: 1, insize: 64
+   unique: 11, success, outsize: 16
+unique: 12, opcode: OPENDIR (27), nodeid: 1, insize: 48
+   unique: 12, success, outsize: 32
+unique: 13, opcode: READDIR (28), nodeid: 1, insize: 80
+fuseserver_readdir
+   unique: 13, success, outsize: 16
+unique: 14, opcode: RELEASEDIR (29), nodeid: 1, insize: 64
+   unique: 14, success, outsize: 16
+unique: 15, opcode: OPENDIR (27), nodeid: 1, insize: 48
+   unique: 15, success, outsize: 32
+unique: 16, opcode: READDIR (28), nodeid: 1, insize: 80
+fuseserver_readdir
+   unique: 16, success, outsize: 16
+unique: 17, opcode: RELEASEDIR (29), nodeid: 1, insize: 64
+   unique: 17, success, outsize: 16
+unique: 18, opcode: OPENDIR (27), nodeid: 1, insize: 48
+   unique: 18, success, outsize: 32
+unique: 19, opcode: READDIR (28), nodeid: 1, insize: 80
+fuseserver_readdir
+   unique: 19, success, outsize: 16
+unique: 20, opcode: RELEASEDIR (29), nodeid: 1, insize: 64
+   unique: 20, success, outsize: 16
+unique: 21, opcode: OPENDIR (27), nodeid: 1, insize: 48
+   unique: 21, success, outsize: 32
+unique: 22, opcode: READDIR (28), nodeid: 1, insize: 80
+fuseserver_readdir
+   unique: 22, success, outsize: 16
+unique: 23, opcode: RELEASEDIR (29), nodeid: 1, insize: 64
+   unique: 23, success, outsize: 16
+unique: 24, opcode: OPENDIR (27), nodeid: 1, insize: 48
+   unique: 24, success, outsize: 32
+unique: 25, opcode: READDIR (28), nodeid: 1, insize: 80
+fuseserver_readdir
+   unique: 25, success, outsize: 16
+unique: 26, opcode: RELEASEDIR (29), nodeid: 1, insize: 64
+   unique: 26, success, outsize: 16
+unique: 27, opcode: OPENDIR (27), nodeid: 1, insize: 48
+   unique: 27, success, outsize: 32
+unique: 28, opcode: READDIR (28), nodeid: 1, insize: 80
+fuseserver_readdir
+   unique: 28, success, outsize: 16
+unique: 29, opcode: RELEASEDIR (29), nodeid: 1, insize: 64
+   unique: 29, success, outsize: 16
+unique: 30, opcode: OPENDIR (27), nodeid: 1, insize: 48
+   unique: 30, success, outsize: 32
+unique: 31, opcode: READDIR (28), nodeid: 1, insize: 80
+fuseserver_readdir
+   unique: 31, success, outsize: 16
+unique: 32, opcode: RELEASEDIR (29), nodeid: 1, insize: 64
+   unique: 32, success, outsize: 16
+unique: 33, opcode: OPENDIR (27), nodeid: 1, insize: 48
+   unique: 33, success, outsize: 32
+unique: 34, opcode: READDIR (28), nodeid: 1, insize: 80
+fuseserver_readdir
+   unique: 34, success, outsize: 16
+unique: 35, opcode: RELEASEDIR (29), nodeid: 1, insize: 64
+   unique: 35, success, outsize: 16
+unique: 36, opcode: OPENDIR (27), nodeid: 1, insize: 48
+   unique: 36, success, outsize: 32
+unique: 37, opcode: READDIR (28), nodeid: 1, insize: 80
+fuseserver_readdir
+   unique: 37, success, outsize: 16
+unique: 38, opcode: RELEASEDIR (29), nodeid: 1, insize: 64
+   unique: 38, success, outsize: 16
+unique: 39, opcode: OPENDIR (27), nodeid: 1, insize: 48
+   unique: 39, success, outsize: 32
+unique: 40, opcode: READDIR (28), nodeid: 1, insize: 80
+fuseserver_readdir
+   unique: 40, success, outsize: 16
+unique: 41, opcode: RELEASEDIR (29), nodeid: 1, insize: 64
+   unique: 41, success, outsize: 16
+unique: 42, opcode: OPENDIR (27), nodeid: 1, insize: 48
+   unique: 42, success, outsize: 32
+unique: 43, opcode: READDIR (28), nodeid: 1, insize: 80
+fuseserver_readdir
+   unique: 43, success, outsize: 16
+unique: 44, opcode: RELEASEDIR (29), nodeid: 1, insize: 64
+   unique: 44, success, outsize: 16
+unique: 45, opcode: OPENDIR (27), nodeid: 1, insize: 48
+   unique: 45, success, outsize: 32
+unique: 46, opcode: READDIR (28), nodeid: 1, insize: 80
+fuseserver_readdir
+   unique: 46, success, outsize: 16
+unique: 47, opcode: RELEASEDIR (29), nodeid: 1, insize: 64
+   unique: 47, success, outsize: 16
+unique: 48, opcode: OPENDIR (27), nodeid: 1, insize: 48
+   unique: 48, success, outsize: 32
+unique: 49, opcode: READDIR (28), nodeid: 1, insize: 80
+fuseserver_readdir
+   unique: 49, success, outsize: 16
+unique: 50, opcode: RELEASEDIR (29), nodeid: 1, insize: 64
+   unique: 50, success, outsize: 16
+unique: 51, opcode: OPENDIR (27), nodeid: 1, insize: 48
+   unique: 51, success, outsize: 32
+unique: 52, opcode: READDIR (28), nodeid: 1, insize: 80
+fuseserver_readdir
+   unique: 52, success, outsize: 16
+unique: 53, opcode: RELEASEDIR (29), nodeid: 1, insize: 64
+   unique: 53, success, outsize: 16
+unique: 54, opcode: OPENDIR (27), nodeid: 1, insize: 48
+   unique: 54, success, outsize: 32
+unique: 55, opcode: READDIR (28), nodeid: 1, insize: 80
+fuseserver_readdir
+   unique: 55, success, outsize: 16
+unique: 56, opcode: RELEASEDIR (29), nodeid: 1, insize: 64
+   unique: 56, success, outsize: 16
+unique: 57, opcode: OPENDIR (27), nodeid: 1, insize: 48
+   unique: 57, success, outsize: 32
+unique: 58, opcode: READDIR (28), nodeid: 1, insize: 80
+fuseserver_readdir
+   unique: 58, success, outsize: 16
+unique: 59, opcode: RELEASEDIR (29), nodeid: 1, insize: 64
+   unique: 59, success, outsize: 16
+unique: 60, opcode: OPENDIR (27), nodeid: 1, insize: 48
+   unique: 60, success, outsize: 32
+unique: 61, opcode: READDIR (28), nodeid: 1, insize: 80
+fuseserver_readdir
+   unique: 61, success, outsize: 16
+unique: 62, opcode: RELEASEDIR (29), nodeid: 1, insize: 64
+   unique: 62, success, outsize: 16
+unique: 63, opcode: OPENDIR (27), nodeid: 1, insize: 48
+   unique: 63, success, outsize: 32
+unique: 64, opcode: READDIR (28), nodeid: 1, insize: 80
+fuseserver_readdir
+   unique: 64, success, outsize: 16
+unique: 65, opcode: RELEASEDIR (29), nodeid: 1, insize: 64
+   unique: 65, success, outsize: 16
+unique: 66, opcode: OPENDIR (27), nodeid: 1, insize: 48
+   unique: 66, success, outsize: 32
+unique: 67, opcode: READDIR (28), nodeid: 1, insize: 80
+fuseserver_readdir
+   unique: 67, success, outsize: 16
+unique: 68, opcode: RELEASEDIR (29), nodeid: 1, insize: 64
+   unique: 68, success, outsize: 16
+unique: 69, opcode: LOOKUP (1), nodeid: 1, insize: 52
+   unique: 69, error: -2 (No such file or directory), outsize: 16
+unique: 70, opcode: LOOKUP (1), nodeid: 1, insize: 46
+getattr 000000008534df31 1
+getfile 000000008534df31
+getfile 000000008534df31 -> sz 65553
+   getattr -> 65553
+   unique: 70, success, outsize: 144
+unique: 71, opcode: OPEN (14), nodeid: 2234834737, insize: 48
+   unique: 71, success, outsize: 32
+unique: 72, opcode: IOCTL (39), nodeid: 2234834737, insize: 72
+   unique: 72, error: -38 (Function not implemented), outsize: 16
+unique: 73, opcode: GETATTR (3), nodeid: 2234834737, insize: 56
+getattr 000000008534df31 1
+getfile 000000008534df31
+getfile 000000008534df31 -> sz 65553
+   getattr -> 65553
+   unique: 73, success, outsize: 120
+unique: 74, opcode: READ (15), nodeid: 2234834737, insize: 80
+   unique: 74, success, outsize: 16400
+unique: 75, opcode: READ (15), nodeid: 2234834737, insize: 80
+   unique: 75, success, outsize: 32784
+unique: 76, opcode: READ (15), nodeid: 2234834737, insize: 80
+   unique: 76, success, outsize: 16417
+unique: 77, opcode: GETATTR (3), nodeid: 2234834737, insize: 56
+getattr 000000008534df31 1
+getfile 000000008534df31
+getfile 000000008534df31 -> sz 65553
+   getattr -> 65553
+   unique: 77, success, outsize: 120
+unique: 78, opcode: GETATTR (3), nodeid: 2234834737, insize: 56
+getattr 000000008534df31 1
+getfile 000000008534df31
+getfile 000000008534df31 -> sz 65553
+   getattr -> 65553
+   unique: 78, success, outsize: 120
+unique: 79, opcode: FLUSH (25), nodeid: 2234834737, insize: 64
+   unique: 79, error: -38 (Function not implemented), outsize: 16
+unique: 80, opcode: RELEASE (18), nodeid: 2234834737, insize: 64
+   unique: 80, success, outsize: 16
+unique: 81, opcode: LOOKUP (1), nodeid: 1, insize: 46
+getattr 00000000c0953c27 1
+getfile 00000000c0953c27
+getfile 00000000c0953c27 -> sz 4111
+   getattr -> 4111
+   unique: 81, success, outsize: 144
+unique: 82, opcode: OPEN (14), nodeid: 3231005735, insize: 48
+   unique: 82, success, outsize: 32
+unique: 83, opcode: IOCTL (39), nodeid: 3231005735, insize: 72
+   unique: 83, error: -38 (Function not implemented), outsize: 16
+unique: 84, opcode: GETATTR (3), nodeid: 3231005735, insize: 56
+getattr 00000000c0953c27 1
+getfile 00000000c0953c27
+getfile 00000000c0953c27 -> sz 4111
+   getattr -> 4111
+   unique: 84, success, outsize: 120
+unique: 85, opcode: GETATTR (3), nodeid: 3231005735, insize: 56
+getattr 00000000c0953c27 1
+getfile 00000000c0953c27
+getfile 00000000c0953c27 -> sz 4111
+   getattr -> 4111
+   unique: 85, success, outsize: 120
+unique: 86, opcode: READ (15), nodeid: 3231005735, insize: 80
+   unique: 86, success, outsize: 4127
+unique: 87, opcode: GETATTR (3), nodeid: 3231005735, insize: 56
+getattr 00000000c0953c27 1
+getfile 00000000c0953c27
+getfile 00000000c0953c27 -> sz 4111
+   getattr -> 4111
+   unique: 87, success, outsize: 120
+unique: 88, opcode: RELEASE (18), nodeid: 3231005735, insize: 64
+   unique: 88, success, outsize: 16
+unique: 89, opcode: OPENDIR (27), nodeid: 1, insize: 48
+   unique: 89, success, outsize: 32
+unique: 90, opcode: READDIR (28), nodeid: 1, insize: 80
+fuseserver_readdir
+   unique: 90, success, outsize: 4112
+unique: 91, opcode: READDIR (28), nodeid: 1, insize: 80
+fuseserver_readdir
+   unique: 91, success, outsize: 4112
+unique: 92, opcode: READDIR (28), nodeid: 1, insize: 80
+fuseserver_readdir
+   unique: 92, success, outsize: 4112
+unique: 93, opcode: READDIR (28), nodeid: 1, insize: 80
+fuseserver_readdir
+   unique: 93, success, outsize: 4112
+unique: 94, opcode: READDIR (28), nodeid: 1, insize: 80
+fuseserver_readdir
+   unique: 94, success, outsize: 3920
+unique: 95, opcode: READDIR (28), nodeid: 1, insize: 80
+fuseserver_readdir
+   unique: 95, success, outsize: 16
+unique: 96, opcode: RELEASEDIR (29), nodeid: 1, insize: 64
+   unique: 96, success, outsize: 16
+unique: 97, opcode: FORGET (2), nodeid: 3231005735, insize: 48
+unique: 98, opcode: FORGET (2), nodeid: 2234834737, insize: 48
+unique: 99, opcode: FORGET (2), nodeid: 1, insize: 48
