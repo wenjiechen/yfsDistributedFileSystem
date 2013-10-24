@@ -12,6 +12,17 @@
 
 extent_server::extent_server() {
 	pthread_mutex_init(&mutexServer,NULL);
+	//insert root directory 0x00000001
+	extent_protocol::extentid_t root = 0x00000001;
+	std::string content = "";
+	extent_protocol::attr attr;
+	time_t curTime;
+	time(&curTime);
+  	attr.ctime = curTime;
+  	attr.mtime = curTime;
+  	attr.size = content.size();
+	pEntry pe = new Entry(content,attr); 
+    contents[root] = pe;
 }
 
 extent_server::~extent_server(){

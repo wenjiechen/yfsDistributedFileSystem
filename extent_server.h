@@ -19,8 +19,7 @@ class extent_server {
   int remove(extent_protocol::extentid_t id, int &);
 
   private:
-	pthread_mutex_t mutexServer;
-	
+	pthread_mutex_t mutexServer;	
 	//Entry is a file or content of dirctory	
 	typedef struct Entry{
 		Entry(std::string _content, extent_protocol::attr _attribute){
@@ -33,6 +32,7 @@ class extent_server {
 
   typedef std::map<extent_protocol::extentid_t, pEntry> EntrysMap;
   typedef std::map<extent_protocol::extentid_t, pEntry>::value_type valType;
+  typedef EntrysMap::iterator Iter;
   EntrysMap contents;
   
 };
