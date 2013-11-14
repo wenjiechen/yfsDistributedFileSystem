@@ -8,9 +8,11 @@
 
 #include "lock_protocol.h"
 #include "lock_client.h"
+//#include "lock_client_cache.h"
 
 class yfs_client {
   extent_client *ec;
+//  lock_client_cache *lc;
   lock_client *lc;
  public:
 

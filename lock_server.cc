@@ -39,7 +39,6 @@ lock_protocol::status
 lock_server::granting(int clientId, lock_protocol::lockid_t lockId, int &replyClient)
 {
   pthread_mutex_lock(&mutexServer);
-//  cout << "SERVER: clientId = " << clientId << " ACQUIRE lockId = " << lockId << endl;
 
   lock_protocol::status ret = lock_protocol::OK;
   replyClient = ++nacquire;  
@@ -47,7 +46,6 @@ lock_server::granting(int clientId, lock_protocol::lockid_t lockId, int &replyCl
   if(it == locksTable.end())
   { 
     locksTable.insert(map<lock_protocol::lockid_t, string>::value_type(lockId,"locked"));
-//    cout << "create a new lock, lockid = " << lockId << endl;
     pthread_mutex_unlock(&mutexServer);
     return ret;
   }
@@ -67,7 +65,6 @@ lock_protocol::status
 lock_server::releasing(int clientId, lock_protocol::lockid_t lockId, int &replyClient){
 
   pthread_mutex_lock(&mutexServer);
-//  cout << "SERVER: clientId = " << clientId << " RELEASE lockId = " << lockId << endl;
 
   lock_protocol::status ret = lock_protocol::OK;
   map<lock_protocol::lockid_t, string>::iterator it = locksTable.find(lockId);

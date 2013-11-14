@@ -34,7 +34,6 @@ lock_client::acquire(lock_protocol::lockid_t lockId)
 {
   int replyByServer;
   lock_protocol::status ret = cl->call(lock_protocol::acquire, cl->id(), lockId, replyByServer);
-//  std::cout << "CLIENT: acquire lockId = " << lockId << ", clientId = " << cl->id() <<", replyByServer = "<<replyByServer << std::endl;
   VERIFY(ret == lock_protocol::OK);
   return replyByServer;
 }
@@ -44,7 +43,6 @@ lock_client::release(lock_protocol::lockid_t lockId)
 {
   int replyByServer;
   lock_protocol::status ret = cl->call(lock_protocol::release, cl->id(), lockId, replyByServer);
-//  std::cout << "CLIENT: release lockId = " << lockId << ", clientId = " << cl->id() <<", replyByServer = "<<replyByServer << std::endl;
   
   VERIFY(ret == lock_protocol::OK);
   return replyByServer;
