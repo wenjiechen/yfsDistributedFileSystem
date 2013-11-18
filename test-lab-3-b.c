@@ -482,6 +482,7 @@ main(int argc, char *argv[])
   printf("OK\n");
 
   printf("Concurrent creates: ");
+//  fprintf(stderr, "=============================concurrent creates=====");
   pid = fork();
   if(pid < 0){
     perror("test-lab-3-b: fork");

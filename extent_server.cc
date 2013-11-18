@@ -35,6 +35,7 @@ extent_server::~extent_server(){
 int extent_server::put(extent_protocol::extentid_t id, std::string buf, int &)
 {
   pthread_mutex_lock(&mutexServer);
+//  //std::cout<<"$$$es,put,start,eid="<<id<<std::endl;
   // You fill this in for Lab 2.
   //setup ctime, mtime
   time_t curTime;
@@ -52,7 +53,7 @@ int extent_server::put(extent_protocol::extentid_t id, std::string buf, int &)
 	}
   pEntry pCon = new Entry(buf,attr);
   contents[id] = pCon;
-
+//  //std::cout<<"$$$es,put,succ,eid="<<id<<std::endl;
   pthread_mutex_unlock(&mutexServer);
   return extent_protocol::OK;
 }
@@ -60,15 +61,18 @@ int extent_server::put(extent_protocol::extentid_t id, std::string buf, int &)
 int extent_server::get(extent_protocol::extentid_t id, std::string &buf)
 {
   pthread_mutex_lock(&mutexServer);
+//  //std::cout<<"$$$es,get,start,eid="<<id<<std::endl;
   // You fill this in for Lab 2.
   if(contents.find(id) != contents.end()){
 	//found the entry, modify buf, update atime
 	contents[id]-> attribute.atime = time(NULL);
   	buf = contents[id]-> content;
 	pthread_mutex_unlock(&mutexServer);
+//  	//std::cout<<"$$$es,get,succ,eid="<<id<<std::endl;
    	return extent_protocol::OK;	
 }
 	pthread_mutex_unlock(&mutexServer);
+  	//std::cout<<"$$$es,get,noentry,eid="<<id<<std::endl;
    	return extent_protocol::NOENT;			  
 }
 
@@ -76,6 +80,7 @@ int extent_server::getattr(extent_protocol::extentid_t id, extent_protocol::attr
 {
   // You fill this in for Lab 2.
 	pthread_mutex_lock(&mutexServer);
+    //std::cout<<"$$$es,getattr,start,eid="<<id<<std::endl;
 	if(contents.find(id) != contents.end()){
 	//found the entry, return attr
 	pEntry pe= contents[id];
@@ -85,16 +90,19 @@ int extent_server::getattr(extent_protocol::extentid_t id, extent_protocol::attr
   	a.ctime = pe->attribute.ctime;
 
 	pthread_mutex_unlock(&mutexServer);
+    //std::cout<<"$$$es,getattr,OK,eid="<<id<<std::endl;
 	return extent_protocol::OK;
 	}
 
   pthread_mutex_unlock(&mutexServer);
+  //std::cout<<"$$$es,getattr,Noentry,eid="<<id<<std::endl;
   return extent_protocol::NOENT;
 }
 
 int extent_server::remove(extent_protocol::extentid_t id, int &)
 {
   pthread_mutex_lock(&mutexServer);
+  //std::cout<<"$$$es,remove,start,eid="<<id<<std::endl;
   // You fill this in for Lab 2.
   if(contents.find(id) != contents.end()){
 	pEntry pe = contents[id];
@@ -102,10 +110,11 @@ int extent_server::remove(extent_protocol::extentid_t id, int &)
 	pe = NULL;
     contents.erase(id);
   pthread_mutex_unlock(&mutexServer);
+  //std::cout<<"$$$es,remove,OK,eid="<<id<<std::endl;
   return extent_protocol::OK;
 }
 
   pthread_mutex_unlock(&mutexServer);
+  //std::cout<<"$$$es,remove,IOERR,eid="<<id<<std::endl;
   return extent_protocol::IOERR;
 }
-

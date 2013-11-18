@@ -12,12 +12,13 @@
 #include <stdlib.h>
 #include <time.h>
 
-
 yfs_client::yfs_client(std::string extent_dst, std::string lock_dst)
 {
   ec = new extent_client(extent_dst);
+  extent_cache_releaser *lu = new extent_cache_releaser(ec);
 //  lc = new lock_client(lock_dst);
-  lc = new lock_client_cache(lock_dst);
+//  lc = new lock_client_cache(lock_dst);
+  lc = new lock_client_cache(lock_dst, lu);
   srand(unsigned(time(0)));
 }
 
@@ -148,6 +149,7 @@ int yfs_client::setFileSize(inum finum, unsigned long long newSize)
 // than or equal to the size of the file, read zero bytes.
 int yfs_client::readFile(inum finum,unsigned long long readSize,unsigned long long offset, std::string &buf)
 {
+	std::cout <<"++yfs:readFile,start, tid="<<pthread_self()<<",eid="<<finum<<endl;
 	lc->acquire(finum);
 	if(isdir(finum)){
 		lc->release(finum);
@@ -155,6 +157,7 @@ int yfs_client::readFile(inum finum,unsigned long long readSize,unsigned long lo
 	}	
 	std::string tempBuf;
 	if(ec->get(finum,tempBuf) != extent_protocol::OK){
+		std::cout <<"++yfs:readFile,ioerr, tid="<<pthread_self()<<",eid="<<finum<<endl;
 		lc->release(finum);
 		return IOERR;
 	}
@@ -165,7 +168,7 @@ int yfs_client::readFile(inum finum,unsigned long long readSize,unsigned long lo
 	else{
 		buf = tempBuf.substr(offset,readSize);
 	}
-
+	std::cout <<"++yfs:readFile,succ, tid="<<pthread_self()<<",eid="<<finum<<endl;
     lc->release(finum);
 	return OK;
 }
@@ -182,14 +185,17 @@ int yfs_client::readFile(inum finum,unsigned long long readSize,unsigned long lo
 // response back to fuse with fuse_reply_buf or fuse_reply_err.
 int yfs_client::writeFile(inum finum, size_t size, off_t offset, const std::string &wBuf)
 {
+	std::cout <<"++yfs,writeFile,start, tid="<<pthread_self()<<",eid="<<finum<<endl;
 	lc->acquire(finum);
 	if(isdir(finum)){
+		std::cout <<"++yfs,writeFile,ioerr1, eid="<<finum<<endl;
 		lc->release(finum);
 		return IOERR;
 	}
 
 	std::string curContent;
 	if(ec->get(finum, curContent) != extent_protocol::OK){
+		std::cout <<"++yfs,writeFile,ioerr2, eid="<<finum<<endl;
 		lc->release(finum);
 		return IOERR;
 	}
@@ -212,10 +218,12 @@ int yfs_client::writeFile(inum finum, size_t size, off_t offset, const std::stri
 	}
 
 	if(ec->put(finum,newContent) != extent_protocol::OK){
+		std::cout <<"++yfs,writeFile,ioerr3, eid="<<finum<<endl;
 		lc->release(finum);
 		return IOERR;
 	}
 
+	std::cout <<"++yfs,writeFile,succ, tid="<<pthread_self()<<",eid="<<finum<<endl;
 	lc->release(finum);
 	return OK;
 }
@@ -260,11 +268,13 @@ std::vector<yfs_client::dirent_t> yfs_client::parseDirent(const std::string &ent
 // don't need check parent_inum exist or not.
 int yfs_client::createFile(inum parent_inum,const std::string &fName, inum &finum)
 {
+	std::cout <<"++yfs,createFile,start, tid="<<pthread_self()<<",par-eid="<<parent_inum<<endl;
 	lc->acquire(parent_inum);
 	std::string dirEnts;
 	if( ec->get(parent_inum, dirEnts) != extent_protocol::OK)
 	{
 		lc->release(parent_inum);
+		std::cout<<"yfs,createFile,ioerr1"<<std::endl;
 		return IOERR;
 	}
 
@@ -272,19 +282,11 @@ int yfs_client::createFile(inum parent_inum,const std::string &fName, inum &finu
 	if(dirEnts.find(nameString + "=") != std::string::npos)
 	{	
 		lc->release(parent_inum);
+		std::cout <<"++yfs,createFile,exist, tid="<<pthread_self()<<",par-eid="<<parent_inum<<endl;
 		return EXIST;
 	}
 
 	finum = rand() | 0x80000000;
-	lc->acquire(finum);
-	std::string empty;
-	if(ec->put(finum,empty) != extent_protocol::OK)
-	{
-		lc->release(finum);
-		lc->release(parent_inum);
-		return IOERR;
-	}
-	lc->release(finum);	
 	//update parent_inum's directory's content
 	dirEnts += fName;
   	dirEnts += "=";
@@ -292,23 +294,40 @@ int yfs_client::createFile(inum parent_inum,const std::string &fName, inum &finu
   	dirEnts += ";";	
 	if(ec->put(parent_inum, dirEnts) != extent_protocol::OK) {
 		lc->release(parent_inum);
+		std::cout<<"yfs,createFile,ioerr2"<<std::endl;
     	return IOERR;
   }
 	lc->release(parent_inum);
+
+	lc->acquire(finum);
+	std::string empty;
+	if(ec->put(finum,empty) != extent_protocol::OK)
+	{
+		lc->release(finum);
+		std::cout<<"yfs,createFile,ioerr3"<<std::endl;
+		return IOERR;
+	}
+	lc->release(finum);
+	
+	std::cout <<"++yfs,createFile,succ, tid="<<pthread_self()<<",par-eid="<<parent_inum<<",finum="<<finum<<endl;
 	return OK;
 }
 
-
 int yfs_client::lookup(inum parent_inum, const std::string &fName, inum &finum)
-{
+{ // need wrapped in lc->acquire, lc->release****************
+	lc->acquire(parent_inum);
 	std::string dirEnts;
 	if(ec->get(parent_inum, dirEnts) != extent_protocol::OK)
 	{
+		cout << "++yfs,lookup(), IOERR,parent inum = "<<parent_inum<<", finum = " << finum << endl;
+		lc->release(parent_inum);
 		return IOERR;
 	}
 
 	if(dirEnts.find(fName+"=") == std::string::npos)
 	{
+		cout << "++yfs,lookup(), NOENT,parent inum = "<<parent_inum<<", finum = " << finum << endl;
+		lc->release(parent_inum);
 		return NOENT;
 	}
 	std::vector<dirent_t> entrys = parseDirent(dirEnts);
@@ -318,23 +337,32 @@ int yfs_client::lookup(inum parent_inum, const std::string &fName, inum &finum)
 		if(entrys[i].name == fName)
 		{
 			finum = entrys[i].inum;
+			lc->release(parent_inum);
+			cout << "++yfs,lookup(), OK ,parent inum = "<<parent_inum<<", finum = " << finum << endl;
 			return OK;
 		}
  	}
 
+	cout << "++yfs,lookup(), NOENT2,parent inum = "<<parent_inum<<", finum = " << finum << endl;
+	lc->release(parent_inum);
 	return NOENT;
 }
 
 //don't need add a lock
 int yfs_client::readDir(inum dinum, std::vector<yfs_client::dirent_t> &entrys)
-{
+{ // need wrapped in lc->acquire, lc->release****************
+	lc->acquire(dinum);
 	std::string dirEnts;
 	if(ec->get(dinum, dirEnts) != extent_protocol::OK)
 	{
+		lc->release(dinum);
+		cout << "++yfs,readDir(), IOERR,inum = "<<dinum<< endl;
 		return IOERR;
 	}
 
 	entrys = parseDirent(dirEnts);
+	lc->release(dinum);
+	cout << "++yfs,readDir(), OK,inum = "<<dinum<< endl;
 	return OK;
 }
 
@@ -380,6 +408,7 @@ int yfs_client::mkdir(const inum &parent_inum, const char* dir_name, inum &dir_i
 	return OK;
 }
 
+
 // Remove the file named @name from directory @parent.
 // Free the file's extent.
 // If the file doesn't exist, indicate error ENOENT.
@@ -391,17 +420,29 @@ int yfs_client::unlink(const inum &parent_inum, const char* file_name)
 	inum file_inum;
 	//bug, can't add lock for lookup(), otherwise this lookup() involve will be be blocked by
 	//unlink, because unlink() get the lock first. 
-	int ret = lookup(parent_inum, file_name, file_inum);  
-	if( ret == NOENT)
+	// can't use lookup********************
+	std::string dirEnts;
+	if(ec->get(parent_inum, dirEnts) != extent_protocol::OK)
+	{
+		lc->release(parent_inum);
+		return IOERR;
+	}
+	std::string tmp_fn(file_name);
+	if(dirEnts.find(tmp_fn+"=") == std::string::npos)
 	{
 		lc->release(parent_inum);
 		return NOENT;
 	}
-	else if( ret == IOERR)
+
+	std::vector<dirent_t> entrys = parseDirent(dirEnts);	
+	for(size_t i = 0; i < entrys.size() ; ++i)
 	{
-		lc->release(parent_inum);
-		return IOERR;
-	} 
+		if(entrys[i].name == file_name)
+		{
+			file_inum = entrys[i].inum;
+			break;
+		}
+ 	}
 
 	//not allow for directory
 	if(	isdir(file_inum) == true)
@@ -410,9 +451,6 @@ int yfs_client::unlink(const inum &parent_inum, const char* file_name)
 		return IOERR;
 	}		
    
-	std::string parentEnts;
-	ec->get(parent_inum, parentEnts);
-	std::vector<dirent_t> entrys = parseDirent(parentEnts);
 	for(std::vector<dirent_t>::iterator it = entrys.begin(); it != entrys.end(); it++)
 	{
 		if(it->inum == file_inum)
