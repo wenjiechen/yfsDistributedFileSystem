@@ -1,6 +1,6 @@
 Introduction
 ---
-There are 7 labs in different branchs, which builds a multi-server file system called Yet Another File System (yfs) in the spirit of [Frangipani](http://www.news.cs.nyu.edu/~jinyang/fa08/papers/frangipani.pdf). In the end, the system looks like
+There are 7 runable labs in different branchs, which builds a multi-server file system called Yet Another File System (yfs) in the spirit of [Frangipani](http://www.news.cs.nyu.edu/~jinyang/fa08/papers/frangipani.pdf). In the end, the system looks like
 
 ![alt text](http://www.news.cs.nyu.edu/~jinyang/fa12/labs/yfs.jpg)
 
